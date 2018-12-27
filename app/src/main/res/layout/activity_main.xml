@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="89dp">
+
+    <TextView
+        android:id="@+id/tv_main_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:text=" 姓名："
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/edtTxt_main_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtTxt_main_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_main_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_main_name" />
+
+    <TextView
+        android:id="@+id/tv_main_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="电话："
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/edtTxt_main_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_name" />
+
+    <EditText
+        android:id="@+id/edtTxt_main_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="电话号码"
+        android:inputType="phone"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_main_phone"
+        app:layout_constraintStart_toEndOf="@+id/tv_main_phone" />
+
+    <Button
+        android:id="@+id/btn_main_insert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="添加"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/btn_main_query"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_phone" />
+
+    <Button
+        android:id="@+id/btn_main_query"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查询"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_main_insert"
+        app:layout_constraintEnd_toStartOf="@+id/btn_main_update"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_main_insert" />
+
+    <Button
+        android:id="@+id/btn_main_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修改"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_main_query"
+        app:layout_constraintEnd_toStartOf="@+id/btn_main_delete"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_main_query" />
+
+    <Button
+        android:id="@+id/btn_main_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_main_update"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_main_update" />
+
+    <TextView
+        android:id="@+id/tv_main_display"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_main_insert" />
+
+</android.support.constraint.ConstraintLayout>
