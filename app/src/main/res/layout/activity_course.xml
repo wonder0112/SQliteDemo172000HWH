@@ -85,7 +85,7 @@
         android:id="@+id/btn_course_query"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="修改"
+        android:text="查询"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/btn_course_update"
         app:layout_constraintEnd_toStartOf="@+id/btn_course_delete"
