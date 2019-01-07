@@ -8,11 +8,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     //全局变量
     EditText edtTxtName,edtTxtCoure,edtTxtScore;
     Button btnInsert,btnUpdate,btnQuery,btnDelete;
     TextView tvDisplay;
+    StuSQLiteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_course);
         //初始化控件变量
         initUI();
+        //初始化SQLite适配器
+        adapter =new StuSQLiteAdapter(getApplicationContext());
 
         //设置监听器
         btnInsert.setOnClickListener(this);
@@ -27,6 +33,8 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         btnUpdate.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
         //逻辑设计
+
+
     }
     @Override
     public void onClick(View v) {
@@ -37,7 +45,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 stu.setName(edtTxtName.getText().toString().trim());
                 stu.setCourse(edtTxtCoure.getText().toString().trim());
                 stu.setScore(Float.valueOf(edtTxtScore.getText().toString().trim()));
-                StuSQLiteAdapter adapter=new StuSQLiteAdapter(getApplicationContext());
                 Long rowId=adapter.insert(stu);
                 if(rowId==0){
                     Toast.makeText(getApplicationContext(),"数据已存在",Toast.LENGTH_SHORT).show();
@@ -48,6 +55,30 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
             case R.id.btn_course_query:
+                //获取参数
+                String name=edtTxtName.getText().toString().trim();
+                String course=edtTxtCoure.getText().toString().trim();
+                List<Student> list=new ArrayList<>();
+
+                //判断
+                if(name.equals("")){
+                    if (course.equals("")){
+                        //查询所有数据
+                        list=adapter.queryAll();
+                    }else {
+                        //查询科目的数据，未考虑
+                    }
+                }else {
+                    if (course.equals("")){
+                        //查询个人所有数据
+                        list=adapter.querybyName(name);
+                    }else {
+                        //查询具体个人科目数据
+                        list=adapter.querybyNameAndCourse(name,course);
+                    }
+                }
+
+
 
                 break;
             case  R.id.btn_course_update:
