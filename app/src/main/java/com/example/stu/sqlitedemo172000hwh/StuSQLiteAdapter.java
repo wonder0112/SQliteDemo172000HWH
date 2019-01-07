@@ -58,12 +58,19 @@ public class StuSQLiteAdapter {
         if(cursor.getCount()>0){
             cursor.moveToFirst();//把指针指向第一条记录
             do{
-                int id=cursor.getInt(0);
+                int _id=cursor.getInt(0);
+                String name=cursor.getString(1);
+                String course=cursor.getString(2);
+                Float score=cursor.getFloat(3);
 
+                Student stu=new Student();
+                stu.set_id(_id);
+                stu.setName(name);
+                stu.setCourse(course);
+                stu.setScore(score);
+                list.add(stu);
             }while (cursor.moveToNext());
         }
-
-
         closeDB();
         return  list;
     }
