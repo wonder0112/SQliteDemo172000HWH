@@ -3,8 +3,12 @@ package com.example.stu.sqlitedemo172000hwh;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,8 +19,9 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     //全局变量
     EditText edtTxtName,edtTxtCoure,edtTxtScore;
     Button btnInsert,btnUpdate,btnQuery,btnDelete;
-    TextView tvDisplay;
+    ListView lvDisplay;
     StuSQLiteAdapter adapter;
+    List<Student> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         initUI();
         //初始化SQLite适配器
         adapter =new StuSQLiteAdapter(getApplicationContext());
+        list=new ArrayList<>();
 
         //设置监听器
         btnInsert.setOnClickListener(this);
@@ -33,6 +39,13 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         btnUpdate.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
         //逻辑设计
+        lvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Student stu=list.get(position);
+                Toast.makeText(getApplicationContext(),stu.getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -58,8 +71,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 //获取参数
                 String name=edtTxtName.getText().toString().trim();
                 String course=edtTxtCoure.getText().toString().trim();
-                List<Student> list=new ArrayList<>();
-
                 //判断参数
                 if(name.equals("")){
                     if (course.equals("")){
@@ -78,13 +89,14 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
                 if(list.size()>0){
-                    Toast.makeText(getApplicationContext(),String.valueOf(list.size()),Toast.LENGTH_SHORT).show();
+                    //list数据->ListView控件中
+                    MyAdapter adapter=new MyAdapter();
+                    lvDisplay.setAdapter(adapter);
+
+                   Toast.makeText(getApplicationContext(),String.valueOf(list.size()),Toast.LENGTH_SHORT).show();
                 }else if(list.size()==0){
                     Toast.makeText(getApplicationContext(),"无数据",Toast.LENGTH_SHORT).show();
                 }
-
-
-
                 break;
             case  R.id.btn_course_update:
 
@@ -95,6 +107,43 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         }
 
     }
+    //list数据显示到ListView适配器
+    public class  MyAdapter extends  BaseAdapter{
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+        @Override
+        public Object getItem(int position) {
+            return list.get(position);
+        }
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View view=View.inflate(getApplicationContext(),R.layout.course_item,null);
+            TextView tvID=view.findViewById(R.id.tv_course_item_id);
+            TextView tvName=view.findViewById(R.id.tv_course_item_name);
+            TextView tvCourse=view.findViewById(R.id.tv_course_item_course);
+            TextView tvScore=view.findViewById(R.id.tv_course_item_score);
+
+            Student student=(Student)getItem(position);
+
+            tvID.setText(String.valueOf(student.get_id()));
+            tvName.setText(student.getName());
+            tvCourse.setText(student.getCourse());
+            tvScore.setText(String.valueOf(student.getScore()));
+
+            return view;
+        }
+    }
+
+
+
+
     protected  void initUI(){
         edtTxtName=findViewById(R.id.edtTxt_course_name);
         edtTxtCoure=findViewById(R.id.edtTxt_course_course);
@@ -103,6 +152,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         btnQuery=findViewById(R.id.btn_course_query);
         btnUpdate=findViewById(R.id.btn_course_update);
         btnDelete=findViewById(R.id.btn_course_delete);
-        tvDisplay=findViewById(R.id.tv_course_display);
+        lvDisplay=findViewById(R.id.lv_course_display);
     }
 }
