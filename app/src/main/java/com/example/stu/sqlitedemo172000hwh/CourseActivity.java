@@ -60,7 +60,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 String course=edtTxtCoure.getText().toString().trim();
                 List<Student> list=new ArrayList<>();
 
-                //判断
+                //判断参数
                 if(name.equals("")){
                     if (course.equals("")){
                         //查询所有数据
@@ -76,6 +76,11 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                         //查询具体个人科目数据
                         list=adapter.querybyNameAndCourse(name,course);
                     }
+                }
+                if(list.size()>0){
+                    Toast.makeText(getApplicationContext(),String.valueOf(list.size()),Toast.LENGTH_SHORT).show();
+                }else if(list.size()==0){
+                    Toast.makeText(getApplicationContext(),"无数据",Toast.LENGTH_SHORT).show();
                 }
 
 
