@@ -76,13 +76,56 @@ public class StuSQLiteAdapter {
     }
     public List<Student> querybyName(String name){
         List<Student> list=new ArrayList<>();
+        opendDB();
+        //查询所有数据
+        Cursor cursor=db.query(TABLENAME,null,"name=?",new String[]{name},null,null,null,null);
+        //游标Cursor-->List
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();//把指针指向第一条记录
+            do{
+                int _id=cursor.getInt(0);
+                String name1=cursor.getString(1);
+                String course=cursor.getString(2);
+                Float score=cursor.getFloat(3);
 
+                Student stu=new Student();
+                stu.set_id(_id);
+                stu.setName(name1);
+                stu.setCourse(course);
+                stu.setScore(score);
+                list.add(stu);
+            }while (cursor.moveToNext());
+        }
+        closeDB();
 
         return  list;
     }
 
     public List<Student> querybyNameAndCourse(String name,String course){
         List<Student> list=new ArrayList<>();
+        opendDB();
+        //查询所有数据
+        Cursor cursor=db.query(TABLENAME,null,"name=? and course=?",new String[]{name,course},null,null,null,null);
+        //游标Cursor-->List
+        if(cursor.getCount()>0){
+            cursor.moveToFirst();//把指针指向第一条记录
+            do{
+                int _id=cursor.getInt(0);
+                String name1=cursor.getString(1);
+                String course1=cursor.getString(2);
+                Float score=cursor.getFloat(3);
+
+                Student stu=new Student();
+                stu.set_id(_id);
+                stu.setName(name1);
+                stu.setCourse(course1);
+                stu.setScore(score);
+                list.add(stu);
+            }while (cursor.moveToNext());
+        }
+        closeDB();
+
+
 
 
         return  list;
