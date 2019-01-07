@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CourseActivity extends AppCompatActivity implements View.OnClickListener {
     //全局变量
@@ -39,11 +40,11 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 StuSQLiteAdapter adapter=new StuSQLiteAdapter(getApplicationContext());
                 Long rowId=adapter.insert(stu);
                 if(rowId==0){
-                    tvDisplay.setText("数据已存在");
+                    Toast.makeText(getApplicationContext(),"数据已存在",Toast.LENGTH_SHORT).show();
                 }else if(rowId>=0){
-                    tvDisplay.setText("添加成功");
+                    Toast.makeText(getApplicationContext(),"添加成功",Toast.LENGTH_SHORT).show();
                 }else {
-                    tvDisplay.setText("添加失败");
+                    Toast.makeText(getApplicationContext(),"添加成功",Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btn_course_query:
