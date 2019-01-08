@@ -22,6 +22,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     ListView lvDisplay;
     StuSQLiteAdapter adapter;
     List<Student> list;
+    Student stu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         //初始化SQLite适配器
         adapter =new StuSQLiteAdapter(getApplicationContext());
         list=new ArrayList<>();
+        stu=new Student();
 
         //设置监听器
         btnInsert.setOnClickListener(this);
@@ -51,13 +53,21 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     }
     @Override
     public void onClick(View v) {
+        stu.setName(edtTxtName.getText().toString().trim());
+        stu.setCourse(edtTxtCoure.getText().toString().trim());
+
+        String scoreStr=edtTxtScore.getText().toString().trim();
+        float score=0.0f;
+        try{
+            score=Float.valueOf(scoreStr);
+        }catch (Exception e){
+            score=0.0f;
+        }finally {
+            stu.setScore(score);
+        }
 
         switch (v.getId()){
             case R.id.btn_course_insert:
-                Student stu=new Student();
-                stu.setName(edtTxtName.getText().toString().trim());
-                stu.setCourse(edtTxtCoure.getText().toString().trim());
-                stu.setScore(Float.valueOf(edtTxtScore.getText().toString().trim()));
                 Long rowId=adapter.insert(stu);
                 if(rowId==0){
                     Toast.makeText(getApplicationContext(),"数据已存在",Toast.LENGTH_SHORT).show();
@@ -66,6 +76,9 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 }else {
                     Toast.makeText(getApplicationContext(),"添加成功",Toast.LENGTH_SHORT).show();
                 }
+                edtTxtName.setText(null);
+                edtTxtCoure.setText(null);
+                edtTxtScore.setText(null);
                 break;
             case R.id.btn_course_query:
                 //获取参数
@@ -97,9 +110,20 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 }else if(list.size()==0){
                     Toast.makeText(getApplicationContext(),"无数据",Toast.LENGTH_SHORT).show();
                 }
+                edtTxtName.setText(null);
+                edtTxtCoure.setText(null);
+                edtTxtScore.setText(null);
                 break;
             case  R.id.btn_course_update:
-
+                int num=adapter.update(stu);
+                if(num>0){
+                    Toast.makeText(getApplicationContext(),"更新成功",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(),"更新失败",Toast.LENGTH_SHORT).show();
+                }
+                edtTxtName.setText(null);
+                edtTxtCoure.setText(null);
+                edtTxtScore.setText(null);
                 break;
             case R.id.btn_course_delete:
 
