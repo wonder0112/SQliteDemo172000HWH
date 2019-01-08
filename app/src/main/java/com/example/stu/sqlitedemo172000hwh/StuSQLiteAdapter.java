@@ -45,8 +45,16 @@ public class StuSQLiteAdapter {
         closeDB();
         return rowId;
     }
-    public void update(){
-
+    //功能根据姓名和科目名称，修改成绩，输入参数：Student对象，返回值：受影响的记录条数
+    public int update(Student student){
+        int num=0;
+        opendDB();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put("score",student.getScore());
+        num=db.update(TABLENAME,contentValues,"name=? and course=?",
+                new String[]{student.getName(),student.getCourse()});
+        closeDB();
+        return  num;
     }
     //查询功能，，输出结果：？List<Student>输入参数：？？,无参数：全部记录，仅有姓名：该姓名下的记录，既有姓名也有科目：单条记录
     public List<Student> queryAll(){
@@ -124,10 +132,6 @@ public class StuSQLiteAdapter {
             }while (cursor.moveToNext());
         }
         closeDB();
-
-
-
-
         return  list;
     }
 
