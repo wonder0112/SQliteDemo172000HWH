@@ -134,10 +134,13 @@ public class StuSQLiteAdapter {
         closeDB();
         return  list;
     }
-
-
-
-    public void delete(){
-
+    //根据姓名和科目名称删除记录，输入参数：姓名，科目，返回值：被删除的记录条数
+    public int delete(String name,String course){
+        int num=0;
+        opendDB();
+        num=db.delete(TABLENAME,"name=? and course=?",
+                new String[]{name,course});
+        closeDB();
+        return num;
     }
 }

@@ -55,7 +55,6 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         stu.setName(edtTxtName.getText().toString().trim());
         stu.setCourse(edtTxtCoure.getText().toString().trim());
-
         String scoreStr=edtTxtScore.getText().toString().trim();
         float score=0.0f;
         try{
@@ -126,6 +125,11 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 edtTxtScore.setText(null);
                 break;
             case R.id.btn_course_delete:
+                if(adapter.delete(stu.getName(),stu.getCourse())>0){
+                    Toast.makeText(getApplicationContext(),"删除成功",Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(),"删除失败",Toast.LENGTH_SHORT).show();
+                }
 
                 break;
         }
